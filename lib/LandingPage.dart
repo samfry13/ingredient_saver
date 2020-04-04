@@ -35,12 +35,13 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   Widget buildListTile(
-      String title, String subtitle, String imageURI, Function onPressed) {
-    return GestureDetector(
-      child: Container(
-        margin: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-        child: Card(
-          color: Theme.of(context).accentColor,
+      String title, String subtitle, String imageURI, EdgeInsets margin, Function onPressed) {
+    return Container(
+      margin: margin,
+      child: Card(
+        color: Theme.of(context).accentColor,
+        child: InkWell(
+          onTap: onPressed,
           child: Padding(
             padding: EdgeInsets.all(16.0),
             child: Row(
@@ -86,7 +87,6 @@ class _LandingPageState extends State<LandingPage> {
           ),
         ),
       ),
-      onTap: onPressed,
     );
   }
 
@@ -123,19 +123,113 @@ class _LandingPageState extends State<LandingPage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           children: <Widget>[
-            buildListTile("Ingredients", "57 Saved", "assets/spices.jpg", () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          IngredientsPage(title: "Ingredients")));
-            }),
-            buildListTile("Recipes", "321 Saved", "assets/recipe.jpg", () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => RecipesPage(title: "Recipes")));
-            })
+            buildListTile(
+                "Ingredients",
+                "57 Saved",
+                "assets/spices.jpg",
+                EdgeInsets.fromLTRB(16, 32, 16, 0),
+                () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              IngredientsPage(title: "Ingredients")));
+                }
+            ),
+            buildListTile(
+                "Recipes",
+                "321 Saved",
+                "assets/recipe.jpg",
+                EdgeInsets.fromLTRB(16, 16, 16, 0),
+                () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RecipesPage(title: "Recipes")));
+                }
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                      child: Divider(),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                        "Featured",
+                      style: TextStyle(
+                        color: Color.fromRGBO(0x00, 0x00, 0x00, 0.5)
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Divider(),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              child: Container(
+                height: 250,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 4,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                        height: 240,
+                        width: 160,
+                        child: Card(
+                          color: Theme.of(context).accentColor,
+                          child: InkWell(
+                            onTap: () {
+
+                            },
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 11,
+                                  child: FittedBox(
+                                      fit: BoxFit.cover, child: Image.asset("assets/recipe.jpg"))
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                                    child: Container(
+                                      width: 160,
+                                      height: 64,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                            child: Text("Gourmet Nachos", style: TextStyle(fontSize: 14),),
+                                          ),
+                                          Text("3/5 Ingredients Owned", style: TextStyle(fontSize: 12),)
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                )
+              ),
+            )
           ],
         ),
       ),

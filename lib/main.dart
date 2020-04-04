@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Ingredient Saver',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,11 +24,8 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-//        primaryColor: Color(0xFFEB3B),
         primaryColor: Color.fromRGBO(0xFF, 0xEB, 0x3b, 1),
-//        secondaryHeaderColor: Color(0xC8B900),
         secondaryHeaderColor: Color.fromRGBO(0xC8, 0xB9, 0x00, 1),
-//        accentColor: Color(0xFFFF72)
         accentColor: Color.fromRGBO(0xFF, 0xFF, 0X72, 1)
       ),
       home: LandingPage(title: 'Ingredients Saver'),
