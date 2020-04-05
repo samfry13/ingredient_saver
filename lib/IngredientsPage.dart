@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ingredientsaver/CategoryPage.dart';
+import 'package:ingredientsaver/IngredientsDetailsPage.dart';
 
 class IngredientsPage extends StatefulWidget {
   IngredientsPage({Key key, this.title}) : super(key: key);
@@ -63,7 +65,10 @@ class _IngredientsPageState extends State<IngredientsPage> {
               child: Text("Expiring Soon", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    IngredientsDetailsPage(title: "Ingredient", amount: "5 lbs", expirationDate: "01/01/2021",)));
+              },
               child: ListTile(
                 title: Text("Ingredient"),
                 subtitle: Text("Expires on 01/01/2021"),
@@ -71,7 +76,10 @@ class _IngredientsPageState extends State<IngredientsPage> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    IngredientsDetailsPage(title: "Ingredient", amount: "5 lbs", expirationDate: "01/01/2021",)));
+              },
               child: ListTile(
                 title: Text("Ingredient"),
                 subtitle: Text("Expires on 01/01/2021"),
@@ -79,7 +87,10 @@ class _IngredientsPageState extends State<IngredientsPage> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    IngredientsDetailsPage(title: "Ingredient", amount: "5 lbs", expirationDate: "01/01/2021",)));
+              },
               child: ListTile(
                 title: Text("Ingredient"),
                 subtitle: Text("Expires on 01/01/2021"),
@@ -92,38 +103,83 @@ class _IngredientsPageState extends State<IngredientsPage> {
               child: Text("Categories", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    CategoryPage(title: "Ingredient", itemCount: 2,)));
+              },
               child: ListTile(
                 title: Text("Category"),
-                trailing: Icon(Icons.keyboard_arrow_right),
+                trailing: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                    children: <Widget>[
+                      Text("2 items"),
+                      Icon(Icons.keyboard_arrow_right)
+                    ]
+                ),
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    CategoryPage(title: "Ingredient", itemCount: 5,)));
+              },
               child: ListTile(
                 title: Text("Category"),
-                trailing: Icon(Icons.keyboard_arrow_right),
+                trailing: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: <Widget>[
+                      Text("5 items"),
+                      Icon(Icons.keyboard_arrow_right)
+                    ]
+                ),
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    CategoryPage(title: "Ingredient", itemCount: 6,)));
+              },
               child: ListTile(
                 title: Text("Category"),
-                trailing: Icon(Icons.keyboard_arrow_right),
+                trailing: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: <Widget>[
+                      Text("6 items"),
+                      Icon(Icons.keyboard_arrow_right)
+                    ]
+                ),
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    CategoryPage(title: "Ingredient", itemCount: 4,)));
+              },
               child: ListTile(
                 title: Text("Category"),
-                trailing: Icon(Icons.keyboard_arrow_right),
+                trailing: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: <Widget>[
+                      Text("4 items"),
+                      Icon(Icons.keyboard_arrow_right)
+                    ]
+                ),
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    CategoryPage(title: "Ingredient", itemCount: 8,)));
+              },
               child: ListTile(
                 title: Text("Category"),
-                trailing: Icon(Icons.keyboard_arrow_right),
+                trailing: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: <Widget>[
+                      Text("8 items"),
+                      Icon(Icons.keyboard_arrow_right)
+                    ]
+                ),
               ),
             ),
           ],

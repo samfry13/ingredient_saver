@@ -11,6 +11,50 @@ class RecipesPage extends StatefulWidget {
 
 class _RecipesPageState extends State<RecipesPage> {
 
+  createRecipeCards (int d){
+
+    var recipes = <Widget>[];
+    var list = new List<int>.generate(d, (i) =>i + 1 );
+
+    list.forEach((i) {
+      return recipes.add(new Container(
+        height: 240,
+        width: 160,
+        child: Card(
+          color: Theme.of(context).accentColor,
+          child: InkWell(
+            onTap: () {},
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 11,
+                  child: FittedBox(fit: BoxFit.cover, child: Image.asset("assets/recipe.jpg")),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                          child: Text("Gourmet Nachos", style: TextStyle(fontSize: 14)),
+                        ),
+                        Text("3/5 Ingredients Owned", style: TextStyle(fontSize: 12))
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),);
+    });
+    return recipes;
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -27,84 +71,13 @@ class _RecipesPageState extends State<RecipesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(itemCount: 8, itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
-                  height: 240,
-                  width: 160,
-                  child: Card(
-                    color: Theme.of(context).accentColor,
-                    child: InkWell(
-                      onTap: () {},
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 11,
-                            child: FittedBox(fit: BoxFit.cover, child: Image.asset("assets/recipe.jpg")),
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
-                                    child: Text("Gourmet Nachos", style: TextStyle(fontSize: 14)),
-                                  ),
-                                  Text("3/5 Ingredients Owned", style: TextStyle(fontSize: 12))
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 240,
-                  width: 160,
-                  child: Card(
-                    color: Theme.of(context).accentColor,
-                    child: InkWell(
-                      onTap: () {},
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 11,
-                            child: FittedBox(fit: BoxFit.cover, child: Image.asset("assets/recipe.jpg")),
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
-                                    child: Text("Gourmet Nachos", style: TextStyle(fontSize: 14)),
-                                  ),
-                                  Text("3/5 Ingredients Owned", style: TextStyle(fontSize: 12))
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        }),
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          childAspectRatio: (160 / 240),
+          children: createRecipeCards(16),
+        )
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
