@@ -25,7 +25,7 @@ class _CategoryPageState extends State<CategoryPage> {
           return InkWell(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                  IngredientsDetailsPage(title: "Ingredient", amount: "5 lbs", expirationDate: "01/01/2021",)));
+                  IngredientsDetailsPage(title: "Ingredient", amount: "5", suffix: "lbs", expirationDate: "01/01/2021",)));
             },
             child: ListTile(
               title: Text("Ingredient"),
@@ -34,7 +34,12 @@ class _CategoryPageState extends State<CategoryPage> {
             ),
           );
         }
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

@@ -67,7 +67,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
             InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                    IngredientsDetailsPage(title: "Ingredient", amount: "5 lbs", expirationDate: "01/01/2021",)));
+                    IngredientsDetailsPage(title: "Ingredient", expirationDate: "01/01/2021", amount: "5", suffix: "lbs",)));
               },
               child: ListTile(
                 title: Text("Ingredient"),
@@ -78,7 +78,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
             InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                    IngredientsDetailsPage(title: "Ingredient", amount: "5 lbs", expirationDate: "01/01/2021",)));
+                    IngredientsDetailsPage(title: "Ingredient", amount: "5", suffix: "lbs", expirationDate: "01/01/2021")));
               },
               child: ListTile(
                 title: Text("Ingredient"),
@@ -89,7 +89,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
             InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                    IngredientsDetailsPage(title: "Ingredient", amount: "5 lbs", expirationDate: "01/01/2021",)));
+                    IngredientsDetailsPage(title: "Ingredient", amount: "5", suffix: "lbs", expirationDate: "01/01/2021")));
               },
               child: ListTile(
                 title: Text("Ingredient"),
@@ -219,11 +219,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
           buildSearchView(),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+
     );
   }
 }
