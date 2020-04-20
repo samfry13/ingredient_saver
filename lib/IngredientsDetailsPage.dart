@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ingredientsaver/helpers/functions.dart';
+import 'package:ingredientsaver/models/Ingredient.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
+import 'package:ingredientsaver/constants/suffixes.dart';
 
 class IngredientsDetailsPage extends StatefulWidget {
-  IngredientsDetailsPage({Key key, this.title, this.expirationDate, this.amount, this.suffix}) : super(key: key);
-  final String title;
-  final String expirationDate;
-  final String amount;
-  final String suffix;
+  IngredientsDetailsPage({Key key, this.ingredient}) : super(key: key);
+  final Ingredient ingredient;
 
   @override
   _IngredientsDetailsPageState createState() => _IngredientsDetailsPageState();
@@ -15,14 +15,21 @@ class IngredientsDetailsPage extends StatefulWidget {
 class _IngredientsDetailsPageState extends State<IngredientsDetailsPage> {
   bool isEditing = false;
   final FocusNode focusNode = new FocusNode();
-  final List<String> suffixes = ["none", "lbs", "cups", "tsp", "tbsp", "grams", "oz", "cans", "cloves"];
+  final TextEditingController textEditingController = new TextEditingController();
   String currentSuffix;
   String currentAmount;
 
   @override
+  void dispose() {
+    focusNode.dispose();
+    textEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
-    currentSuffix = widget.suffix;
-    currentAmount = widget.amount;
+    currentSuffix = widget.ingredient.suffix;
+    currentAmount = widget.ingredient.amount;
     focusNode.addListener(() {
       if (isEditing && !focusNode.hasFocus && focusNode.canRequestFocus) {
         focusNode.requestFocus();
@@ -31,6 +38,10 @@ class _IngredientsDetailsPageState extends State<IngredientsDetailsPage> {
         focusNode.unfocus();
       }
     });
+    textEditingController.addListener(() {
+      this.setState(() => { currentAmount = textEditingController.text });
+    });
+    textEditingController.text = currentAmount;
     super.initState();
   }
 
@@ -53,12 +64,12 @@ class _IngredientsDetailsPageState extends State<IngredientsDetailsPage> {
                 height: 40,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: suffixes.length,
+                  itemCount: suffixesList.length,
                   itemExtent: 75,
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () => this.setState(() => { currentSuffix = index == 0 ? "" : suffixes[index] }),
-                      child: Center(child: Text(suffixes[index])),
+                      onTap: () => this.setState(() => { currentSuffix = index == 0 ? "" : suffixesList[index] }),
+                      child: Center(child: Text(suffixesList[index])),
                     );
                   },
                 ),
@@ -70,7 +81,7 @@ class _IngredientsDetailsPageState extends State<IngredientsDetailsPage> {
     );
   }
 
-  createRecipeCards (int d) {
+  List<Widget> createRecipeCards (int d) {
     var recipes = <Widget>[];
     var list = new List<int>.generate(d, (i) =>i + 1 );
 
@@ -117,7 +128,7 @@ class _IngredientsDetailsPageState extends State<IngredientsDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.ingredient.name),
       ),
       body: KeyboardActions(
         config: _buildConfig(context),
@@ -126,14 +137,19 @@ class _IngredientsDetailsPageState extends State<IngredientsDetailsPage> {
             SliverList(
               delegate: SliverChildListDelegate([
                 ListTile(
-                  title: Text(widget.title),
-                  subtitle: Text("Expires on " + widget.expirationDate),
+                  title: Text(widget.ingredient.name),
+                  subtitle: Text("Expires on ${formatDateTimeString(widget.ingredient.expirationDate)}"),
                   trailing: isEditing ? Container(
                     width: 100,
                     child: TextField(
+                      autofocus: true,
                       focusNode: focusNode,
+                      controller: textEditingController,
                       textAlign: TextAlign.end,
-                      onChanged: (value) => this.setState(() => {currentAmount = value}),
+                      onEditingComplete: () {
+                        focusNode.unfocus();
+                        this.setState(() => { isEditing = false });
+                      },
                       keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
                       decoration: InputDecoration(
                         suffixText: currentSuffix
@@ -143,7 +159,16 @@ class _IngredientsDetailsPageState extends State<IngredientsDetailsPage> {
                     onTap: () {
                       this.setState(() { isEditing = true; });
                     },
-                    child: Text(currentAmount + " " + currentSuffix),
+                    child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.all(Radius.circular(10))
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(currentAmount + " " + currentSuffix),
+                        )
+                    ),
                   ),
                 ),
                 Padding(

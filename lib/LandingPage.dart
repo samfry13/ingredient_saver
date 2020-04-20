@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ingredientsaver/helpers/functions.dart';
 import 'IngredientsPage.dart';
 import 'RecipesPage.dart';
 
@@ -89,7 +90,7 @@ class _LandingPageState extends State<LandingPage> {
           children: <Widget>[
             buildListTile(
                 "Ingredients",
-                "57 Saved",
+                "${getIngredientCount()} Saved",
                 "assets/spices.jpg",
                 EdgeInsets.fromLTRB(16, 32, 16, 0),
                 () {
